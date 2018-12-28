@@ -41,10 +41,7 @@ public class AlgorithmP extends Algorithm{
 			//P3
 			if(p[2]) {
 				counter++;
-				for(int i = 1; i <= m; i++) {
-					System.out.print(a[i] + " ");
-				}
-				System.out.println();
+				printPartition();
 				p[2] = false;
 				if(a[q] == 2)
 					p[3] = true;
@@ -89,5 +86,12 @@ public class AlgorithmP extends Algorithm{
 			}
 			
 		}
+	}
+	
+	private void printPartition() {
+		for(int i = 1; i <= m; i++) {
+			System.out.print(a[i] + " ");
+		}
+		System.out.println();
 	}
 }
