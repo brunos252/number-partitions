@@ -37,10 +37,7 @@ public class AlgorithmH extends Algorithm{
 			
 			if(H[1]) {
 				counter++;
-				for(int i = 1; i <= m; i++) {
-					System.out.print(a[i] + " ");
-				}
-				System.out.println();
+				printPartition();
 				
 				H[1] = false;
 				if(a[2] >= (a[1] - 1))
@@ -91,5 +88,12 @@ public class AlgorithmH extends Algorithm{
 				H[1] = true;
 			}
 		}
+	}
+	
+	private void printPartition() {
+		for(int i = 1; i <= m; i++) {
+			System.out.print(a[i] + " ");
+		}
+		System.out.println();
 	}
 }
