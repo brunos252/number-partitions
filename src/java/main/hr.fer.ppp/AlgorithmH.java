@@ -1,5 +1,7 @@
+package hr.fer.ppp;
+
 //particije broja n u m djelova
-public class AlgorithmH extends Algorithm{
+public class AlgorithmH implements Algorithm {
 	
 	private short[] a;
 	private long counter;

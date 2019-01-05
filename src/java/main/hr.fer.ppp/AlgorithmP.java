@@ -1,5 +1,7 @@
+package hr.fer.ppp;
+
 //radi za sve isprobane brojeve
-public class AlgorithmP extends Algorithm{
+public class AlgorithmP implements Algorithm {
 	
 	private short[] a;
 	private short m, q, x;
