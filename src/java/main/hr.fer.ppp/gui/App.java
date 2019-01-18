@@ -1,8 +1,12 @@
 package hr.fer.ppp.gui;
 
 import javax.swing.*;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
@@ -12,6 +16,7 @@ public class App extends JFrame {
   private OptionsView optionsView;
   private CentralView centralView;
   private BottomView bottomView;
+  private GraphicsPanel graphicsPanel;
 
   public App() {
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -31,15 +36,33 @@ public class App extends JFrame {
   private void initGUI() {
     Container cp = getContentPane();
 
+    JTabbedPane tabbedPane = new JTabbedPane();
+//    tabbedPane.add()
+
+    JPanel algorithmPanel = new JPanel(new BorderLayout());
+
+
     JPanel top = new JPanel(new GridLayout(2, 1));
     top.add(topView);
     top.add(optionsView);
-    cp.add(top, BorderLayout.PAGE_START);
 
-    cp.add(centralView, BorderLayout.CENTER);
+    algorithmPanel.add(top, BorderLayout.PAGE_START);
+    algorithmPanel.add(centralView, BorderLayout.CENTER);
+    algorithmPanel.add(bottomView, BorderLayout.PAGE_END);
 
-    cp.add(bottomView, BorderLayout.PAGE_END);
+//    cp.add(top, BorderLayout.PAGE_START);
+//
+//    cp.add(centralView, BorderLayout.CENTER);
+//
+//    cp.add(bottomView, BorderLayout.PAGE_END);
 
+    GraphicsPanel graphicsPanel = new GraphicsPanel();
+//    DrawCanvas canvas = new DrawCanvas();
+//    canvas.setPreferredSize(new Dimension(400, 400));
+    tabbedPane.add("Algoritmi", algorithmPanel);
+    tabbedPane.add("Graficki prikaz", graphicsPanel);
+
+    cp.add(tabbedPane, BorderLayout.CENTER);
 //    prikazi options view ovisno o odabranom algoritmu
     topView.getComboBox().addItemListener((event) -> {
       if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -77,6 +100,42 @@ public class App extends JFrame {
           }
         }
     });
+
+    centralView.getTextArea().addCaretListener((event) -> {
+        if (topView.getButton().getActionCommand().equals("start")) {
+//          System.out.println(getPartitionFromTextArea(event.getDot()));
+          graphicsPanel.getGraphicsTopView().getTextField().setText(getPartitionFromTextArea(event.getDot()));
+        }
+    });
+  }
+
+  private String getPartitionFromTextArea(int position) {
+    String partitionsText = centralView.getTextArea().getText();
+
+    int startOfPartition = 0;
+    int endOfPartition = 0;
+
+    char[] partitionsTextChars = partitionsText.toCharArray();
+
+//    pronadi pocetak particije
+    for (int i = position - 1; i > 0; i--) {
+      if (partitionsTextChars[i] == '\n') {
+        startOfPartition = i + 1;
+        break;
+      }
+    }
+
+//    pronadi kraj particije
+    for (int i = position; i < partitionsTextChars.length; i++) {
+      if (partitionsTextChars[i] == '\n') {
+        endOfPartition = i;
+        break;
+      }
+    }
+
+    String resultPartition = partitionsText.substring(startOfPartition, endOfPartition);
+
+    return resultPartition.trim();
   }
 
   private void resolveTask(SwingWorker<Long, String> task) {

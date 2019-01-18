@@ -10,7 +10,7 @@ public class GUILauncher {
 
       app.pack();
       app.setLocationRelativeTo(null);
-//      app.setResizable(false);
+      app.setResizable(false);
       app.setVisible(true);
     });
   }
