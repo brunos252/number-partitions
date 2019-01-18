@@ -7,20 +7,19 @@ public class DrawCanvas extends JPanel {
 
   private static final int CIRCLE_RADIUS = 5;
 
-  private int height1;
 
   public DrawCanvas() {
     setLayout(new BorderLayout());
   }
 
-  @Override
-  public Dimension getPreferredSize() {
-    if (height1 > super.getPreferredSize().height){
-      return new Dimension(super.getPreferredSize().width, height1);
-    } else {
-      return super.getPreferredSize();
-    }
-  }
+//  @Override
+//  public Dimension getPreferredSize() {
+//    if (height1 > super.getPreferredSize().height){
+//      return new Dimension(super.getPreferredSize().width, height1);
+//    } else {
+//      return super.getPreferredSize();
+//    }
+//  }
 
   @Override
   protected void paintComponent(Graphics g) {
@@ -40,11 +39,4 @@ public class DrawCanvas extends JPanel {
     super.paint(getGraphics());
   }
 
-  public int getHeight1() {
-    return height1;
-  }
-
-  public void setHeight1(int height1) {
-    this.height1 = height1;
-  }
 }

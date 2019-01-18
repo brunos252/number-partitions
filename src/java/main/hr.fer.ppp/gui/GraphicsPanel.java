@@ -12,6 +12,7 @@ public class GraphicsPanel extends JPanel {
   private GraphicsTopView graphicsTopView;
   private GraphicsOptionsView graphicsOptionsView;
   private DrawCanvas drawCanvas;
+//  private DrawCanvas2 drawCanvas2;
   private JScrollPane scrollPane;
 
   public GraphicsPanel() {
@@ -34,9 +35,11 @@ public class GraphicsPanel extends JPanel {
 
 //    preffered size?
     drawCanvas = new DrawCanvas();
-
+//    drawCanvas2 = new DrawCanvas2(null, 0);
     scrollPane = new JScrollPane(drawCanvas, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//    scrollPane = new JScrollPane(drawCanvas2, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+//            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 //    scrollPane.setLayout(null);
 //    scrollPane.setPreferredSize(drawCanvas.getPreferredSize());
   }
@@ -53,6 +56,7 @@ public class GraphicsPanel extends JPanel {
       if (checkIfValidInput()) {
         if (graphicsOptionsView.getButtonOne().isSelected()) {
           new Thread(new FerrerDiagramDrawer(graphicsTopView, drawCanvas, scrollPane)).start();
+//          new Thread(new FerrerDiagramDrawer2(graphicsTopView, drawCanvas2, scrollPane)).start();
         }
       }
     });
