@@ -55,8 +55,9 @@ public class GraphicsPanel extends JPanel {
     graphicsOptionsView.getStartButton().addActionListener((event) -> {
       if (checkIfValidInput()) {
         if (graphicsOptionsView.getButtonOne().isSelected()) {
-          new Thread(new FerrerDiagramDrawer(graphicsTopView, drawCanvas, scrollPane)).start();
-//          new Thread(new FerrerDiagramDrawer2(graphicsTopView, drawCanvas2, scrollPane)).start();
+          new Thread(new FerrerDiagramDrawer(graphicsTopView, drawCanvas)).start();
+        } else if (graphicsOptionsView.getButtonTwo().isSelected()) {
+          new Thread(new ConjugatePartitionDrawer(graphicsTopView, drawCanvas)).start();
         }
       }
     });

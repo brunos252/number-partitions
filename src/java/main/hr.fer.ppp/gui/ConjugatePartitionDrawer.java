@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class FerrerDiagramDrawer implements Runnable {
+public class ConjugatePartitionDrawer implements Runnable {
 
   private static final int X_INSET = 50;
   private static final int Y_INSET = 50;
@@ -12,7 +12,7 @@ public class FerrerDiagramDrawer implements Runnable {
   private GraphicsTopView graphicsTopView;
   private DrawCanvas drawCanvas;
 
-  public FerrerDiagramDrawer(GraphicsTopView graphicsTopView, DrawCanvas drawCanvas) {
+  public ConjugatePartitionDrawer(GraphicsTopView graphicsTopView, DrawCanvas drawCanvas) {
     this.graphicsTopView = graphicsTopView;
     this.drawCanvas = drawCanvas;
   }
@@ -44,18 +44,19 @@ public class FerrerDiagramDrawer implements Runnable {
     int numberOfRows = numberOfCirclesToDraw.size();
 
 //    ravnamo se prema najvecoj vrijednosti
-    int distanceBetweenCircleColumn = (rightX - leftX)/numberOfCirclesToDraw.get(0);
-    int distanceBetweenCircleRows = (bottomY - topY)/numberOfRows;
+//    int distanceBetweenCircleColumn = (rightX - leftX)/numberOfCirclesToDraw.get(0);
+    int distanceBetweenCircleColumn = (rightX - leftX)/numberOfRows;
+    int distanceBetweenCircleRows = (bottomY - topY)/numberOfCirclesToDraw.get(0);
 
-//    ispisujemo redak po redak, pomicemo y koordinatu i  potom u svakom retku x koordinatu
     for (int i = 0; i < numberOfRows; i++) {
-      int circleY = topY + (i * distanceBetweenCircleRows);
+//      int circleY = topY + (i * 40);
+      int circleY = topY + (i * distanceBetweenCircleColumn);
 
       for (int j = 0; j < numberOfCirclesToDraw.get(i); j++) {
-        int circleX = leftX + (j * distanceBetweenCircleColumn);
+        int circleX = leftX + (j * distanceBetweenCircleRows);
 
         SwingUtilities.invokeLater(() -> {
-          drawCanvas.paintCircle(circleX, circleY);
+          drawCanvas.paintCircle(circleY, circleX);
         });
       }
     }
