@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class FerrerDiagramDrawer implements Runnable {
+public class DurfeeSquareDrawer implements Runnable {
 
   private static final int X_INSET = 50;
   private static final int Y_INSET = 50;
@@ -12,7 +12,7 @@ public class FerrerDiagramDrawer implements Runnable {
   private GraphicsTopView graphicsTopView;
   private DrawCanvas drawCanvas;
 
-  public FerrerDiagramDrawer(GraphicsTopView graphicsTopView, DrawCanvas drawCanvas) {
+  public DurfeeSquareDrawer(GraphicsTopView graphicsTopView, DrawCanvas drawCanvas) {
     this.graphicsTopView = graphicsTopView;
     this.drawCanvas = drawCanvas;
   }
@@ -20,7 +20,11 @@ public class FerrerDiagramDrawer implements Runnable {
   @Override
   public void run() {
     clearPanel();
-    drawLineOfCircles(graphicsTopView.getTextFieldInputAsListOfNumbers());
+
+    List<Integer> partitionParts = graphicsTopView.getTextFieldInputAsListOfNumbers();
+    int durfeeSide = PartitionUtil.findSideOfDurfeeSquare(partitionParts);
+
+    drawLineOfCircles(partitionParts, durfeeSide);
   }
 
   private void clearPanel() {
@@ -28,7 +32,7 @@ public class FerrerDiagramDrawer implements Runnable {
   }
 
   @SuppressWarnings("Duplicates")
-  private void drawLineOfCircles(List<Integer> numberOfCirclesToDraw) {
+  private void drawLineOfCircles(List<Integer> numberOfCirclesToDraw, int durfeeSide) {
     int x = 0;
     int y = 0;
 
@@ -54,9 +58,16 @@ public class FerrerDiagramDrawer implements Runnable {
       for (int j = 0; j < numberOfCirclesToDraw.get(i); j++) {
         int circleX = leftX + (j * distanceBetweenCircleColumn);
 
-        SwingUtilities.invokeLater(() -> {
-          drawCanvas.paintCircle(circleX, circleY, Color.RED);
-        });
+        Color circleColor;
+        if (j < durfeeSide && numberOfCirclesToDraw.get(i) >= durfeeSide && i < durfeeSide) {
+          circleColor = Color.BLUE;
+        } else {
+          circleColor = Color.RED;
+        }
+
+        SwingUtilities.invokeLater(() ->
+          drawCanvas.paintCircle(circleX, circleY, circleColor)
+        );
       }
     }
   }

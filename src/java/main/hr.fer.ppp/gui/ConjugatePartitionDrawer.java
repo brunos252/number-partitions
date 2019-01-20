@@ -1,5 +1,7 @@
 package hr.fer.ppp.gui;
 
+import javafx.scene.shape.Circle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -56,7 +58,7 @@ public class ConjugatePartitionDrawer implements Runnable {
         int circleX = leftX + (j * distanceBetweenCircleRows);
 
         SwingUtilities.invokeLater(() -> {
-          drawCanvas.paintCircle(circleY, circleX);
+          drawCanvas.paintCircle(circleY, circleX, Color.RED);
         });
       }
     }

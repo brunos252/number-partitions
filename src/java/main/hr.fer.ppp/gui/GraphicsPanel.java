@@ -53,12 +53,16 @@ public class GraphicsPanel extends JPanel {
 //      }
 //    });
     graphicsOptionsView.getStartButton().addActionListener((event) -> {
+      Runnable task;
       if (checkIfValidInput()) {
         if (graphicsOptionsView.getButtonOne().isSelected()) {
-          new Thread(new FerrerDiagramDrawer(graphicsTopView, drawCanvas)).start();
+          task = new FerrerDiagramDrawer(graphicsTopView, drawCanvas);
         } else if (graphicsOptionsView.getButtonTwo().isSelected()) {
-          new Thread(new ConjugatePartitionDrawer(graphicsTopView, drawCanvas)).start();
+          task = new ConjugatePartitionDrawer(graphicsTopView, drawCanvas);
+        } else {
+          task = new DurfeeSquareDrawer(graphicsTopView, drawCanvas);
         }
+        new Thread(task).start();
       }
     });
 //    buttonOne.addActionListener((event) -> );

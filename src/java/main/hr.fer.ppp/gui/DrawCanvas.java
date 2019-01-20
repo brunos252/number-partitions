@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class DrawCanvas extends JPanel {
 
-  private static final int CIRCLE_RADIUS = 5;
+  private static final int CIRCLE_RADIUS = 8;
 
 
   public DrawCanvas() {
@@ -27,10 +27,10 @@ public class DrawCanvas extends JPanel {
     setBackground(Color.PINK);
   }
 
-  public void paintCircle(int locationX, int locationY) {
+  public void paintCircle(int locationX, int locationY, Color circleColor) {
     Graphics g = getGraphics();
 
-    g.setColor(Color.RED);
+    g.setColor(circleColor);
     g.fillOval(locationX, locationY, 2*CIRCLE_RADIUS, 2*CIRCLE_RADIUS);
     revalidate();
   }
