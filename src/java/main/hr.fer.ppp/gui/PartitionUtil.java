@@ -4,16 +4,13 @@ import java.util.*;
 
 public class PartitionUtil {
 
+  private static final Comparator<Map.Entry<Integer, Integer>> comp = (e1, e2) -> Integer.compare(e2.getKey(), e1.getKey());
+
   public static int findSideOfDurfeeSquare(List<Integer> partition) {
-    int lowestPartOfPartition = partition.get(partition.size()-1);
     int highestPartOfPartition = partition.get(0);
 
     Map<Integer, Integer> occuranceMapper = new HashMap<>();
-    for(int i = 1; i < highestPartOfPartition; i++) {
-//      if (occuranceMapper.get(currentPartitionPart) != null) {
-//        continue;
-//      }
-
+    for(int i = 1; i <= highestPartOfPartition; i++) {
       int numberOfGreaterOrEqualParts = 0;
 
       for(int part : partition) {
@@ -25,9 +22,7 @@ public class PartitionUtil {
       occuranceMapper.put(i, numberOfGreaterOrEqualParts);
     }
 
-    Comparator<Map.Entry<Integer, Integer>> comp = (e1, e2) -> Integer.compare(e2.getKey(), e1.getKey());
-
-    System.out.println(occuranceMapper);
+//    System.out.println(occuranceMapper);
     Map.Entry<Integer, Integer> side = occuranceMapper.entrySet()
             .stream()
             .filter(entry -> entry.getKey() <= entry.getValue())
@@ -38,8 +33,9 @@ public class PartitionUtil {
     return side.getKey();
   }
 
+//  za testiranje
   public static void main(String[] args) {
-    System.out.println(findSideOfDurfeeSquare(Arrays.asList(10, 5, 4, 4, 2, 1)));
+    System.out.println(findSideOfDurfeeSquare(Arrays.asList(2, 2, 2, 2, 2, 2)));
   }
 
 }
